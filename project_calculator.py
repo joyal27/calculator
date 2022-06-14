@@ -1,57 +1,70 @@
 #calculator using tkinter 
-
 from tkinter import *
+
+import possibilities as pos
+
+
 
 window=Tk()
 window.geometry('180x230')
 window.title('Calculator')
 window.config(bg='red')
 
-#fucntions for the buttons
+
+#function for getting string without newline
+def get_string():
+    string=text.get('1.0','end')
+    string=string.rstrip() #to remove the new line inside the string
+    return string 
+
+
+#fucntions for the number buttons
 
 def enter_zero():
-    text.insert('end','0')
+    pos.put_num(get_string(),'0',text)
 
 def enter_one():
-    text.insert('end','1')
+    pos.put_num(get_string(),'1',text)
 
 def enter_two():
-    text.insert('end','2')
+    pos.put_num(get_string(),'2',text)
 
 def enter_three():
-    text.insert('end','3')
+    pos.put_num(get_string(),'3',text)
 
 def enter_four():
-    text.insert('end','4')
+    pos.put_num(get_string(),'4',text)
 
 def enter_five():
-    text.insert('end','5') 
+    pos.put_num(get_string(),'5',text)
 
 def enter_six():
-    text.insert('end','6')
+    pos.put_num(get_string(),'6',text)
 
 def enter_seven():
-    text.insert('end','7')
+    pos.put_num(get_string(),'7',text)
 
 def enter_eight():
-    text.insert('end','8')
+    pos.put_num(get_string(),'8',text)
 
 def enter_nine():
-    text.insert('end','9')    
+    pos.put_num(get_string(),'9',text)   
+
 
 #functions for operator buttons
 
 def enter_add():
-    text.insert('end','+') 
-
+   pos.put_operator( get_string(),'+',text)
+      
 def enter_substract():
-    text.insert('end','-')
+   pos.put_operator( get_string(),'-',text)
 
 def enter_multiple():
-    text.insert('end','*')
-
+   pos.put_operator( get_string(),'*',text)
+ 
 def enter_division():
-    text.insert('end','/')    
+   pos.put_operator( get_string(),'/',text)
+
 
 #functions for other buttons
 
@@ -71,22 +84,11 @@ def bracket_close():
     text.insert('end',')')
 
 def previous_entry():
-   string=text.get('1.0','end')
-   x=len(string)-1
-   print('x',x)
-   string=string[0:x-1]
-   print('new',string)
-   text.delete('1.0','end')
-   text.insert('end',string)
-
-
-
-
-
-
-
-
-
+  string=get_string()
+  x=len(string)-1
+  string=string[0:x]
+  text.delete('1.0','end')
+  text.insert('end',string)
 
 
 frame1=Frame(window,bg='yellow')
@@ -95,28 +97,49 @@ text=Text(window,width=24,height=6)
 
 #Creating buttons for numbers
 button0=Button(frame1,text='0',width=5,height=1,command=enter_zero)
+
 button1=Button(frame1,text='1',width=5,height=1,command=enter_one)
+
 button2=Button(frame1,text='2',width=5,height=1,command=enter_two)
+
 button3=Button(frame1,text='3',width=5,height=1,command=enter_three)
+
 button4=Button(frame1,text='4',width=5,height=1,command=enter_four)
+
 button5=Button(frame1,text='5',width=5,height=1,command=enter_five)
+
 button6=Button(frame1,text='6',width=5,height=1,command=enter_six)
+
 button7=Button(frame1,text='7',width=5,height=1,command=enter_seven)
+
 button8=Button(frame1,text='8',width=5,height=1,command=enter_eight)
+
 button9=Button(frame1,text='9',width=5,height=1,command=enter_nine)
+
+
 
 #creating buttons for symbols
 cancel=Button(frame1,text='C',width=5,height=1,command=cancelled)
+
 equal=Button(frame1,text='=',width=5,height=1,command=equalto)
+
 dot=Button(frame1,text='.',width=5,height=1,command=enter_dot)
+
 bracopen=Button(frame1,text='(',width=5,height=1,command=bracket_open)
+
 bracclose=Button(frame1,text=')',width=5,height=1,command=bracket_close)
+
 singledelete=Button(frame1,text='<--',width=5,height=1,command=previous_entry)
+
+
 
 #creating buttons for operators
 plus=Button(frame1,text='+',width=5,height=1,command=enter_add)
+
 subtct=Button(frame1,text='-',width=5,height=1,command=enter_substract)
+
 multipl=Button(frame1,text='x',width=5,height=1,command=enter_multiple)
+
 div=Button(frame1,text='/',width=5,height=1,command=enter_division)
 
 
