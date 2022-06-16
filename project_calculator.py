@@ -75,8 +75,9 @@ def equalto():
     pass 
 
 def enter_dot():
-    text.insert('end','.') 
-
+    pos.empty_dot(text.get('1.0','end'),text)
+    
+    
 def bracket_open():
     text.insert('end','(' ) 
 
