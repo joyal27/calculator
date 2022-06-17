@@ -76,13 +76,16 @@ def equalto():
 
 def enter_dot():
     pos.empty_dot(text.get('1.0','end'),text)
-
+    pos.num_dot(get_string(),text)
+    pos.afternumeric_dot(get_string(),text)
 
 def bracket_open():
-    text.insert('end','(' )
+    pos.empty_open_brace(text.get('1.0','end'),text)
+    pos.put_open_brace(get_string(),text)
 
 def bracket_close():
-    text.insert('end',')')
+    flag = pos.open_check_close(get_string())
+    pos.put_close_brace(get_string(),text,flag)
 
 def previous_entry():
   string=get_string()
