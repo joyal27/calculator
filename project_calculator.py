@@ -2,6 +2,7 @@
 from tkinter import *
 
 import possibilities as pos
+import equaltofunctions as equ
 
 
 

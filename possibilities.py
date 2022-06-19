@@ -38,7 +38,7 @@ def num_dot(str,txt):
     if flag == 1:
         txt.insert('end','.')
     diff = T_indexval - not_num
-    if flag == 0 and not_num != T_indexval and  diff >= 1: #to put dot like in case --> (1.2 
+    if flag == 0 and not_num != T_indexval and  diff >= 1: #to put dot like in case --> (1.2
         txt.insert('end','.')
 
 
@@ -91,13 +91,14 @@ def open_check_close(str):
             close_brace_pos = i
             break
 
-    if local_flag == 1: # if open brace comes in the start without a closing brace
+    if local_flag == 1 and open_brace_pos == 0: # if open brace comes in the start without a closing brace
         open_brace_pos = 1
 
     brace = open_brace_pos - close_brace_pos
+    
     if brace >= 1 :
         return 1
-    if brace == 0:
+    else :
         return 0
 
 
