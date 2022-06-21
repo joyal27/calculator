@@ -1,5 +1,6 @@
 #calculator using tkinter
 from tkinter import *
+from tkinter import messagebox
 
 import possibilities as pos
 import equaltofunctions as equ
@@ -22,8 +23,9 @@ def get_string():
 #fucntions for the number buttons
 
 def enter_zero():
-    pos.put_num(get_string(),'0',text)
-
+    problem_div = pos.put_zero(get_string(),text)
+    if problem_div == 1:
+        messagebox.showerror('showerror','can\'t divide by zero')
 def enter_one():
     pos.put_num(get_string(),'1',text)
 
@@ -73,7 +75,10 @@ def cancelled():
     text.delete('1.0','end')
 
 def equalto():
-    pass
+    flag = equ.last_nonnum(get_string())
+    str,numbers = equ.brackets(get_string(),text,flag)
+    equ.operations(str,numbers,text)
+
 
 def enter_dot():
     pos.empty_dot(text.get('1.0','end'),text)
@@ -81,12 +86,11 @@ def enter_dot():
     pos.afternumeric_dot(get_string(),text)
 
 def bracket_open():
-    pos.empty_open_brace(text.get('1.0','end'),text)
     pos.put_open_brace(get_string(),text)
+    pos.empty_open_brace(text.get('1.0','end'),text)
 
 def bracket_close():
-    flag = pos.open_check_close(get_string())
-    pos.put_close_brace(get_string(),text,flag)
+    pos.put_close_brace(get_string(),text)
 
 def previous_entry():
   string=get_string()

@@ -1,3 +1,4 @@
+
 #programs to control the possiblities of  buttons
 
 
@@ -11,14 +12,28 @@ def put_operator(str,oper,txt):
 #for all numbers buttons
 def put_num(str, num,txt):
      flag = 1
-     T_indexval = len(str)-1                                   #num is the corresponding number
-     if len(str) == 0:                                #if there is no value in the text widget we need to add without a condition
+     T_indexval = len(str)-1               #num is the corresponding number
+     if len(str) == 0:                     #if there is no value in the text widget we need to add without a condition
          txt.insert('end',num)
          flag = 0
      if flag == 1:
          operators = str[T_indexval] =='+' or str[T_indexval] =='-' or str[T_indexval] =='*' or str[T_indexval] =='/'
          if str[T_indexval] == '(' or str[T_indexval] == '.' or str[T_indexval].isnumeric() == True or operators:
              return txt.insert('end',num)
+
+#for zero we need to do a seperate function
+def put_zero(str,txt):
+    flag = 1
+    T_indexval = len(str)-1
+    if len(str) == 0:
+        txt.insert('end','0')
+        flag = 0
+    if flag == 1:
+        if str[T_indexval] == '/': #to show zero division error
+             return 1
+        operators = str[T_indexval] =='+' or str[T_indexval] =='-' or str[T_indexval] =='*'
+        if str[T_indexval] == '(' or str[T_indexval] == '.' or str[T_indexval].isnumeric() == True or operators:
+            return txt.insert('end','0')
 
 
 #for dot button
@@ -69,41 +84,26 @@ def empty_open_brace(str,txt):
 
 def put_open_brace(str,txt):
     T_indexval = len(str)-1
-    operators = str[T_indexval] == '+' or str[T_indexval] == '-' or str[T_indexval] == '*' or str[T_indexval] == '/'
-    if operators:
-        txt.insert('end','(')
+    if len(str) >= 1:
+        operators = str[T_indexval] == '+' or str[T_indexval] == '-' or str[T_indexval] == '*' or str[T_indexval] == '/'
+        if str[T_indexval] == '(' or operators:
+            txt.insert('end','(')
 
 
 #for close brace
-def open_check_close(str):
-    open_brace_pos = 0
-    close_brace_pos = 0
+def put_close_brace(str,txt):
     T_indexval = len(str)-1
-    local_flag = 0
+    open_count = 0
+    close_count = 0
+    num_check = 0
 
-    for i in range(T_indexval,-1,-1):
-        if str[i] == '(':
-            open_brace_pos = i
-            local_flag = 1
-            break                      #To check that a open brace is there without a closing brace and
-    for i in range(T_indexval,-1,-1):   #also to avoid taking open brace which have closing brace i.e:(1+2)+2
-        if str[i] == ')':
-            close_brace_pos = i
-            break
+    for i in range(0,len(str)):
+        if str[i] == '(':     #to get the count of ( occurence
+            open_count += 1
 
-    if local_flag == 1 and open_brace_pos == 0: # if open brace comes in the start without a closing brace
-        open_brace_pos = 1
+    for i in range(0,len(str)):
+        if str[i] == ')':     #to get the count of ) occurence
+            close_count += 1
 
-    brace = open_brace_pos - close_brace_pos
-    
-    if brace >= 1 :
-        return 1
-    else :
-        return 0
-
-
-
-def put_close_brace(str,txt,flag):
-    T_indexval = len(str)-1
-    if str[T_indexval].isnumeric() == True and flag == 1:
+    if open_count != close_count :
         txt.insert('end',')')
