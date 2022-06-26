@@ -76,8 +76,13 @@ def cancelled():
 
 def equalto():
     flag = equ.last_nonnum(get_string())
-    str,numbers = equ.brackets(get_string(),text,flag)
-    equ.operations(str,numbers,text)
+    got_str = equ.brackets(get_string(),flag,text)
+    final_str = equ.operations(got_str,flag,text)
+
+    if flag != None: #in cases like '1+' flag will be None so to escape from it
+        text.delete('1.0','end')
+        text.insert('end',final_str)
+
 
 
 def enter_dot():

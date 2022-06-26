@@ -1,10 +1,19 @@
-
+from tkinter import *
 #programs to control the possiblities of  buttons
 
 
 #for all operator buttons
 def put_operator(got_str,oper,txt):
-    T_indexval = len(got_str)-1                                     #str is current string
+    T_indexval = len(got_str)-1
+    print('t-index',T_indexval)
+    if oper == '-' :
+        if T_indexval == -1:
+            return txt.insert('end',oper) #when there is nothing present ,and to give -ve values
+        if got_str[T_indexval] == '-':
+            messagebox.showerror('showerror','there is already a substract sign') #to avoid --2 kind of situations
+        else:
+            return txt.insert('end',oper)
+                                                            #str is current string
     if got_str[T_indexval].isnumeric() == True or got_str[T_indexval] == ')' :   #oper is operator
         return txt.insert('end',oper)                  #txt is to make a link with text widget so to insert in it
 
