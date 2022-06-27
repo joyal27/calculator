@@ -1,6 +1,7 @@
 #calculator using tkinter
 from tkinter import *
 from tkinter import messagebox
+import platform
 
 import possibilities as pos
 import equaltofunctions as equ
@@ -8,7 +9,16 @@ import equaltofunctions as equ
 
 
 window=Tk()
-window.geometry('176x262')
+
+my_os = platform.system()
+if my_os == 'Windows':
+    window.geometry('180x230')
+    window.resizable(0,0)
+else:
+    window.geometry('176x262')
+    window.resizable(0,0)
+
+
 window.title('Calculator')
 window.config(bg='red')
 
