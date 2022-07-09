@@ -1,4 +1,4 @@
-#calculator using tkinter
+#Calculator using tkinter
 from tkinter import *
 from tkinter import messagebox
 import platform
@@ -12,7 +12,7 @@ window=Tk()
 
 my_os = platform.system()
 if my_os == 'Windows':
-    window.geometry('180x230')
+    window.geometry('180x230')   #for linux and windows calculator size
     window.resizable(0,0)
 else:
     window.geometry('176x262')
@@ -23,15 +23,15 @@ window.title('Calculator')
 window.config(bg='red')
 
 
-#function for getting string without newline
+#Function for getting string without newline
 def get_string():
     string=text.get('1.0','end')
     string=string.rstrip() #to remove the new line inside the string
     return string
 
 
-#fucntions for the number buttons
 
+#Fucntions for the number buttons
 def enter_zero():
     problem_div = pos.put_zero(get_string(),text)
     if problem_div == 1:
@@ -64,8 +64,8 @@ def enter_nine():
     pos.put_num(get_string(),'9',text)
 
 
-#functions for operator buttons
 
+#Functions for operator buttons
 def enter_add():
    pos.put_operator( get_string(),'+',text)
 
@@ -79,8 +79,8 @@ def enter_division():
    pos.put_operator( get_string(),'/',text)
 
 
-#functions for other buttons
 
+#Functions for other buttons
 def cancelled():
     text.delete('1.0','end')
 
@@ -89,7 +89,7 @@ def equalto():
     got_str = equ.brackets(get_string(),flag,text)
     final_str = equ.operations(got_str,flag,text)
 
-    if flag != None: #in cases like '1+' flag will be None so to escape from it
+    if flag != None: #in cases like '1+' and equal button clicked  flag will be None so to escape from it
         text.delete('1.0','end')
         text.insert('end',final_str)
 
@@ -97,8 +97,8 @@ def equalto():
 
 def enter_dot():
     pos.empty_dot(text.get('1.0','end'),text)
-    pos.num_dot(get_string(),text)
-    pos.afternumeric_dot(get_string(),text)
+    pos.notempty_dot(get_string(),text)
+
 
 def bracket_open():
     pos.put_open_brace(get_string(),text)
@@ -142,7 +142,7 @@ button9=Button(frame1,text='9',width=2,height=1,command=enter_nine)
 
 
 
-#creating buttons for symbols
+#Creating buttons for symbols
 cancel=Button(frame1,text='C',width=2,height=1,command=cancelled)
 
 equal=Button(frame1,text='=',width=2,height=1,command=equalto)
@@ -157,7 +157,7 @@ singledelete=Button(frame1,text='<--',width=2,height=1,command=previous_entry)
 
 
 
-#creating buttons for operators
+#Creating buttons for operators
 plus=Button(frame1,text='+',width=2,height=1,command=enter_add)
 
 subtct=Button(frame1,text='-',width=2,height=1,command=enter_substract)
@@ -173,7 +173,7 @@ div=Button(frame1,text='/',width=2,height=1,command=enter_division)
 
 
 
-#positioning of button inside  grid
+#Positioning of button inside  grid
 plus.grid(row=0,column=0)
 bracopen.grid(row=0,column=1)
 bracclose.grid(row=0,column=2)

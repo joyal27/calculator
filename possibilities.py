@@ -1,11 +1,10 @@
 from tkinter import *
 #programs to control the possiblities of  buttons
 
-
 #for all operator buttons
 def put_operator(got_str,oper,txt):
-    T_indexval = len(got_str)-1
-    print('t-index',T_indexval)
+    T_indexval = len(got_str)-1   #oper is operator
+                                  #txt is to make a link with text widget so to insert in it
     if oper == '-' :
         if T_indexval == -1:
             return txt.insert('end',oper) #when there is nothing present ,and to give -ve values
@@ -13,16 +12,14 @@ def put_operator(got_str,oper,txt):
             messagebox.showerror('showerror','there is already a substract sign') #to avoid --2 kind of situations
         else:
             return txt.insert('end',oper)
-                                                            #str is current string
-    if got_str[T_indexval].isnumeric() == True or got_str[T_indexval] == ')' :   #oper is operator
-        return txt.insert('end',oper)                  #txt is to make a link with text widget so to insert in it
-
+    if got_str[T_indexval].isnumeric() == True or got_str[T_indexval] == ')' :
+        return txt.insert('end',oper)                 #operators work only when there is a number or ")"
 
 #for all numbers buttons
 def put_num(got_str, num,txt):
      flag = 1
      T_indexval = len(got_str)-1               #num is the corresponding number
-     if len(got_str) == 0:                     #if there is no value in the text widget we need to add without a condition
+     if len(got_str) == 0:            #if there is no value in the text widget we need to add without a condition
          txt.insert('end',num)
          flag = 0
      if flag == 1:
@@ -47,43 +44,46 @@ def put_zero(got_str,txt):
 
 #for dot button
 def empty_dot(got_str,txt):
-    if len(got_str) == 1 and got_str[0] == '\n': #if text widget is empty
-        txt.insert('end','0.')
+    if len(got_str) == 1 and got_str[0] == '\n': #if text widget is empty in that case there will be \n present
+        txt.insert('end','0.')                   #when '.' clicked in empty case we place dot in widget as '0.'
 
 
-def num_dot(got_str,txt):
-    flag = 1
+def notempty_dot(got_str,txt):
+    openbrac_operator = 0
+    closebrac = 0
+    dot_found = 0
+    openbrac_operator_pos = 0
+    openbrac_operator_diff = 0
+    closebrac_pos = 0
+    closebrac_diff = 0
     T_indexval = len(got_str)-1
-    for i in range(T_indexval,-1,-1):
-        if got_str[i].isnumeric() == False: #to put 11.11 kind of stuff single etc
-            not_num = i
-            flag = 0
-            break
-    if flag == 1:
-        txt.insert('end','.')
-    diff = T_indexval - not_num
-    if flag == 0 and not_num != T_indexval and  diff >= 1: #to put dot like in case --> (1.2
-        txt.insert('end','.')
-
-
-def afternumeric_dot(got_str,txt):
-    T_indexval = len(got_str)-1
-    oper_openbrace_pos = 0
-    dot_pos = 0
 
     for i in range(T_indexval,-1,-1):
-        operators = got_str[i] == '+' or got_str[i] == '-' or got_str[i] == '*' or got_str[i] == '/' #to get the postion of operators and ( from backwards
-        if got_str[i] == '('  or operators:
-            oper_openbrace_pos = i
+        operators = got_str[i] == '+' or got_str[i] == '-' or got_str[i] == '*' or got_str[i] == '/'
+        if got_str[i] == '(' or operators:
+            openbrac_operator_pos = i
+            openbrac_operator_diff = T_indexval - openbrac_operator_pos #For the situations (1.,+1. and not for (.,+.
+            openbrac_operator = 1
             break
-    for i in range(T_indexval,-1,-1):
-        if got_str[i] == '.':     #to get first occurence of dot in backwards
-            dot_pos = i
+        if got_str[i] == ')':
+            closebrac_pos = i
+            closebrac_diff = T_indexval - closebrac_pos #For the situation )+1. and to escape )+. and ).
+            closebrac = 1
+            break
+        if got_str[i] == '.':
+            dot_found = 1
             break
 
-    needed_diff = oper_openbrace_pos - dot_pos  #to avoid situation (.
-    if needed_diff >= 1 and got_str[T_indexval].isnumeric() == True:
+#now to apply conditions based on them
+    if openbrac_operator == 1 and openbrac_operator_diff >= 1:
         txt.insert('end','.')
+    if closebrac == 1 and closebrac_diff >= 2:
+        txt.insert('end','.')
+    if openbrac_operator == 0 and closebrac == 0 and dot_found == 0: #In this case there maybe (0.) or there maybe numbers only without dot
+        txt.insert('end','.')
+
+
+
 
 
 #for open brace
