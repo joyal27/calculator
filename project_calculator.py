@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import messagebox
 import platform
+from turtle import window_width
 
 import possibilities as pos
 import equaltofunctions as equ
@@ -12,7 +13,7 @@ window=Tk()
 
 my_os = platform.system()
 if my_os == 'Windows':
-    window.geometry('180x230')   #for linux and windows calculator size
+    window.geometry('180x246')   #for linux and windows calculator size
     window.resizable(0,0)
 else:
     window.geometry('176x262')
@@ -116,55 +117,62 @@ def previous_entry():
 
 
 frame1=Frame(window,bg='yellow')
-text=Text(window,width=22,height=6)
 
+if my_os == 'Windows':
+  text=Text(window,width=22,height=7)
+  bt_width=5
+  bt_height=1
+else:
+  text=Text(window,width=22,height=6)
+  bt_width=2
+  bt_height=1     
 
 #Creating buttons for numbers
-button0=Button(frame1,text='0',width=2,height=1,command=enter_zero)
+button0=Button(frame1,text='0',width=bt_width,height=bt_height,command=enter_zero)
 
-button1=Button(frame1,text='1',width=2,height=1,command=enter_one)
+button1=Button(frame1,text='1',width=bt_width,height=bt_height,command=enter_one)
 
-button2=Button(frame1,text='2',width=2,height=1,command=enter_two)
+button2=Button(frame1,text='2',width=bt_width,height=bt_height,command=enter_two)
 
-button3=Button(frame1,text='3',width=2,height=1,command=enter_three)
+button3=Button(frame1,text='3',width=bt_width,height=bt_height,command=enter_three)
 
-button4=Button(frame1,text='4',width=2,height=1,command=enter_four)
+button4=Button(frame1,text='4',width=bt_width,height=bt_height,command=enter_four)
 
-button5=Button(frame1,text='5',width=2,height=1,command=enter_five)
+button5=Button(frame1,text='5',width=bt_width,height=bt_height,command=enter_five)
 
-button6=Button(frame1,text='6',width=2,height=1,command=enter_six)
+button6=Button(frame1,text='6',width=bt_width,height=bt_height,command=enter_six)
 
-button7=Button(frame1,text='7',width=2,height=1,command=enter_seven)
+button7=Button(frame1,text='7',width=bt_width,height=bt_height,command=enter_seven)
 
-button8=Button(frame1,text='8',width=2,height=1,command=enter_eight)
+button8=Button(frame1,text='8',width=bt_width,height=bt_height,command=enter_eight)
 
-button9=Button(frame1,text='9',width=2,height=1,command=enter_nine)
+button9=Button(frame1,text='9',width=bt_width,height=bt_height,command=enter_nine)
 
 
 
 #Creating buttons for symbols
-cancel=Button(frame1,text='C',width=2,height=1,command=cancelled)
+cancel=Button(frame1,text='C',width=bt_width,height=bt_height,command=cancelled)
 
-equal=Button(frame1,text='=',width=2,height=1,command=equalto)
+equal=Button(frame1,text='=',width=bt_width,height=bt_height,command=equalto)
 
-dot=Button(frame1,text='.',width=2,height=1,command=enter_dot)
+dot=Button(frame1,text='.',width=bt_width,height=bt_height,command=enter_dot)
 
-bracopen=Button(frame1,text='(',width=2,height=1,command=bracket_open)
+bracopen=Button(frame1,text='(',width=bt_width,height=bt_height,command=bracket_open)
 
-bracclose=Button(frame1,text=')',width=2,height=1,command=bracket_close)
+bracclose=Button(frame1,text=')',width=bt_width,height=bt_height,command=bracket_close)
 
-singledelete=Button(frame1,text='<--',width=2,height=1,command=previous_entry)
+singledelete=Button(frame1,text='<--',width=bt_width,height=bt_height,command=previous_entry)
 
 
 
 #Creating buttons for operators
-plus=Button(frame1,text='+',width=2,height=1,command=enter_add)
+plus=Button(frame1,text='+',width=bt_width,height=bt_height,command=enter_add)
 
-subtct=Button(frame1,text='-',width=2,height=1,command=enter_substract)
+subtct=Button(frame1,text='-',width=bt_width,height=bt_height,command=enter_substract)
 
-multipl=Button(frame1,text='x',width=2,height=1,command=enter_multiple)
+multipl=Button(frame1,text='x',width=bt_width,height=bt_height,command=enter_multiple)
 
-div=Button(frame1,text='/',width=2,height=1,command=enter_division)
+div=Button(frame1,text='/',width=bt_width,height=bt_height,command=enter_division)
 
 
 
@@ -200,5 +208,10 @@ button0.grid(row=4,column=2)
 equal.grid(row=4,column=3)
 
 text.pack()
-frame1.place(x=0,y=107)
+
+if my_os == 'Windows':
+  frame1.place(x=0,y=116)   
+else:    
+  frame1.place(x=0,y=107)
+
 window.mainloop()
