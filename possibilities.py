@@ -5,6 +5,8 @@ from tkinter import *
 def put_operator(got_str,oper,txt):
     T_indexval = len(got_str)-1   #oper is operator
                                   #txt is to make a link with text widget so to insert in it
+    slice_error = 0       #if there is nothing in the text there will be slicing error in the 21st line
+                                  
     if oper == '-' :
         if T_indexval == -1:
             return txt.insert('end',oper) #when there is nothing present ,and to give -ve values
@@ -12,8 +14,13 @@ def put_operator(got_str,oper,txt):
             messagebox.showerror('showerror','there is already a substract sign') #to avoid --2 kind of situations
         else:
             return txt.insert('end',oper)
-    if got_str[T_indexval].isnumeric() == True or got_str[T_indexval] == ')' :
-        return txt.insert('end',oper)                 #operators work only when there is a number or ")"
+
+    if T_indexval == -1:
+        slice_error = 1
+
+    if slice_error == 0:
+      if got_str[T_indexval].isnumeric() == True or got_str[T_indexval] == ')' :
+          return txt.insert('end',oper)                 #operators work only when there is a number or ")"
 
 #for all numbers buttons
 def put_num(got_str, num,txt):
